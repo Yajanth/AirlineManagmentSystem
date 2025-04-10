@@ -2,6 +2,7 @@ package com.airplane;
 
 import java.util.ArrayList;
 import java.util.Scanner;
+import java.util.function.Consumer;
 
 public class AirplanesController {
 
@@ -16,35 +17,31 @@ public class AirplanesController {
         System.out.println("Enter model: ");
         String model = s.next();
 
- 
-
         // Generate a new ID based on the last airplane in the list
         int id = airplanes.size() > 0 ? airplanes.get(airplanes.size() - 1).id() + 1 : 0;
 
         // Create a new airplane object
-        Airplane airplane = new Airplane(id,EconomyCapacity,BusinessCapacity,model );
-       
-        
+        Airplane airplane = new Airplane(id, EconomyCapacity, BusinessCapacity, model);
+
         // Add airplane to the in-memory list
         airplanes.add(airplane);
         System.out.println("Airplane added successfully!");
     }
 
+    // Implemented Functional Interface with Lambda Function
     public static void PrintAllPlanes() {
         System.out.println("---------------------------");
-        for (Airplane plane : airplanes) {
-            plane.print();
-        }
+        // Using a lambda expression to print airplane details
+        airplanes.forEach(plane -> System.out.println("Airplane Model: " + plane.model()));
         System.out.println("---------------------------");
     }
 
+    // Using Lambda Expression and Stream API to find plane by ID
     public static Airplane getPlaneByID(int id) {
-        for (Airplane a : airplanes) {
-            if (a.id() == id) {
-                return a;
-            }
-        }
-        return null;  // Return null if not found
+        return airplanes.stream()
+                .filter(plane -> plane.id() == id)
+                .findFirst()
+                .orElse(null);  // Return null if not found
     }
 
     public static void EditAirplane(Scanner s) {
@@ -55,30 +52,17 @@ public class AirplanesController {
             System.out.println("Enter id (int): ");
             id = s.nextInt();
         }
-        
+
         Airplane p = getPlaneByID(id);
         if (p == null) {
             System.out.println("Airplane not found!");
             return;
         }
 
-        System.out.println("Enter economy capacity (int): \n(-1 to keep old value)");
-        int EconomyCapacity = s.nextInt();
-        if (EconomyCapacity == -1) {
-            EconomyCapacity = p.economyCapacity();
-        }
-
-        System.out.println("Enter business capacity (int): \n(-1 to keep old value)");
-        int BusinessCapacity = s.nextInt();
-        if (BusinessCapacity == -1) {
-            BusinessCapacity = p.businessCapacity();
-        }
-
-        System.out.println("Enter model: \n(-1 to keep old value)");
-        String Model = s.next();
-        if (Model.equals("-1")) {
-            Model = p.model();
-        }
+        // Using lambda for conditionally setting capacity and model
+        int EconomyCapacity = getUserInputOrKeepOldValue(s, "economy capacity", p.economyCapacity());
+        int BusinessCapacity = getUserInputOrKeepOldValue(s, "business capacity", p.businessCapacity());
+        String Model = getUserInputOrKeepOldValue(s, "model", p.model());
 
         // Update airplane details
         Airplane updatedAirplane = new Airplane(p.id(), EconomyCapacity, BusinessCapacity, Model);
@@ -102,6 +86,18 @@ public class AirplanesController {
             System.out.println("Plane deleted successfully!");
         } else {
             System.out.println("Airplane not found!");
+        }
+    }
+
+    // Helper method to check user input or keep old value using a lambda
+    private static <T> T getUserInputOrKeepOldValue(Scanner s, String fieldName, T oldValue) {
+        System.out.println("Enter " + fieldName + ": \n(-1 to keep old value)");
+        if (fieldName.equals("model")) {
+            String input = s.next();
+            return input.equals("-1") ? (T) oldValue : (T) input;
+        } else {
+            int input = s.nextInt();
+            return input == -1 ? oldValue : (T) Integer.valueOf(input);
         }
     }
 }
