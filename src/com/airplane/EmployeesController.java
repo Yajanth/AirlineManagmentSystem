@@ -101,8 +101,8 @@ public class EmployeesController {
         return employees.stream().filter(e -> e.getId() == id).findFirst().orElse(null);
     }
 
-    public static void useStreamsDemo() {
-        System.out.println("--- Stream Example: Sorted by Salary ---");
+    public static void sortBySalary() {
+        System.out.println("---  Sorted by Salary ---");
         employees.stream()
                 .sorted(Comparator.comparingDouble(Employee::getSalary))
                 .forEach(Employee::print);

@@ -141,8 +141,8 @@ public class PassengerController {
     }
 
     // Stream example: Sort passengers by first name
-    public static void useStreamsDemo() {
-        System.out.println("--- Stream Example: Sorted by First Name ---");
+    public static void passengersSortByFName() {
+        System.out.println("--- Sorted by First Name ---");
         passengers.stream()
                 .sorted(Comparator.comparing(Passenger::getFirstName))
                 .forEach(Passenger::print);

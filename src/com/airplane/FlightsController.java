@@ -65,17 +65,6 @@ public class FlightsController {
         }
     }
 
-//	public static void delayFlight(Scanner s) {
-//		System.out.println("Enter flight id (int): ");
-//		int id = s.nextInt();
-//		Flight f = getFlightById(id);
-//		if (f != null) {
-//			f.getStatus()
-//			System.out.println("Flight delayed successfully!");
-//		} else {
-//			System.out.println("Flight not found.");
-//		}
-//	}
 	
 
 	public static void bookFlight(Scanner s) {

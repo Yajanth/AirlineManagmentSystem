@@ -1,6 +1,7 @@
 package com.airplane;
 
 import java.io.InputStream;
+
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.File;
@@ -52,14 +53,15 @@ public class Main {
         actions.put(2, () -> PassengerController.findPassengerByName(s));
         actions.put(3, PassengerController::printAllPassengers);
         actions.put(4, () -> PassengerController.editPassenger(s));
-        actions.put(5, () -> PassengerController.deletePassenger(s));
+        actions.put(5, () -> PassengerController.passengersSortByFName());
+
 
         actions.put(6, () -> EmployeesController.addNewEmployee(s));
         actions.put(7, () -> EmployeesController.findEmployeeByName(s));
         actions.put(8, EmployeesController::printAllEmployees);
         actions.put(9, () -> EmployeesController.editEmployee(s));
         actions.put(10, () -> EmployeesController.deleteEmployee(s));
-
+ 
         actions.put(11, () -> AirplanesController.AddNewAirplane(s));
         actions.put(12, AirplanesController::PrintAllPlanes);
         actions.put(13, () -> AirplanesController.EditAirplane(s));
@@ -91,7 +93,7 @@ public class Main {
 
             choice = s.nextInt();
 
-            if (choice == 26) {
+            if (choice == 31) {
                 System.out.println(messages.getProperty("menu.quit"));
                 break;
             }
@@ -119,7 +121,7 @@ public class Main {
         System.out.println("  02. " + messages.getProperty("menu.getPassenger"));
         System.out.println("  03. " + messages.getProperty("menu.printAllPassengers"));
         System.out.println("  04. " + messages.getProperty("menu.editPassenger"));
-        System.out.println("  05. " + messages.getProperty("menu.deletePassenger") + " \n");
+        System.out.println("  05. " + messages.getProperty("menu.passengersSortByFName") + " \n");
 
         System.out.println(messages.getProperty("menu.employees") + ":");
         System.out.println("  06. " + messages.getProperty("menu.addEmployee"));
