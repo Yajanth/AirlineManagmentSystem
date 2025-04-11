@@ -11,7 +11,7 @@ public class EmployeesController {
     private static final List<Employee> employees = new ArrayList<>();
     private static final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
 
-    public static void AddNewEMployee(Scanner s) {
+    public static void addNewEmployee(Scanner s) {
         System.out.println("Enter first name: ");
         String firstName = s.next();
         System.out.println("Enter last name: ");
@@ -104,11 +104,11 @@ public class EmployeesController {
     public static void useStreamsDemo() {
         System.out.println("--- Stream Example: Sorted by Salary ---");
         employees.stream()
-                .sorted(Comparator.comparingDouble(Employee::getSalaray))
+                .sorted(Comparator.comparingDouble(Employee::getSalary))
                 .forEach(Employee::print);
 
         System.out.println("--- Count of Employees with Salary > 50000 ---");
-        long count = employees.stream().filter(e -> e.getSalaray() > 50000).count();
+        long count = employees.stream().filter(e -> e.getSalary() > 50000).count();
         System.out.println("Count: " + count);
     }
 }

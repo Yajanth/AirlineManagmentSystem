@@ -2,7 +2,7 @@ package com.airplane;
 
 import java.util.Objects;
 
-public final class Employee {
+public sealed class Employee implements Payable  permits Pilot{
 
     private int id;
     private String firstName;
@@ -64,9 +64,7 @@ public final class Employee {
         this.tel = tel;
     }
 
-    public double getSalaray() {
-        return salary;
-    }
+
 
     public void setSalary(double salary) {
         this.salary = salary;
@@ -81,7 +79,7 @@ public final class Employee {
     }
 
     public void print() {
-        System.out.println("id: " + id);
+        System.out.println("ID: " + id);
         System.out.println("Name: " + firstName + " " + lastName);
         System.out.println("Email: " + email);
         System.out.println("Tel: " + tel);
@@ -91,10 +89,14 @@ public final class Employee {
     }
 
     @Override
+    public double getSalary() {
+        return salary;
+    }
+
+    @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Employee employee = (Employee) o;
+        if (!(o instanceof Employee employee)) return false;
         return id == employee.id &&
                 Double.compare(employee.salary, salary) == 0 &&
                 Objects.equals(firstName, employee.firstName) &&

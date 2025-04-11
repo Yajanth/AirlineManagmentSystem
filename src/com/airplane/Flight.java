@@ -2,6 +2,9 @@ package com.airplane;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.Locale;
+import java.util.Properties;
+
 
 
 public class Flight {
@@ -12,7 +15,7 @@ public class Flight {
 	private Airport destination;
 	private LocalDateTime departureTime;
 	private LocalDateTime arrivalTime;
-	private boolean delayed;
+	private FlightStatus status ;
 	private int bookedEconomy;
 	private int bookedBusiness;
 	private Employee[] stuff;
@@ -20,10 +23,10 @@ public class Flight {
 	private DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd::HH:mm:ss");
 
 	public Flight() {
-		delayed = false;
-		bookedEconomy = 0;
-		bookedBusiness = 0;
-		stuff = new Employee[10];
+	    status = FlightStatus.SCHEDULED;
+	    bookedEconomy = 0;
+	    bookedBusiness = 0;
+	    stuff = new Employee[10];
 	}
 
 	public int getID() {
@@ -64,12 +67,14 @@ public class Flight {
 	public void setArrivalTime(LocalDateTime arrivalTime) {
 		this.arrivalTime = arrivalTime;
 	}
-	public boolean isDelayed() {
-		return delayed;
+	public FlightStatus getStatus() {
+	    return status;
 	}
-	public void delay() {
-		delayed = true;
+
+	public void setStatus(FlightStatus status) {
+	    this.status = status;
 	}
+
 	public int getBookedEconomy() {
 		return bookedEconomy;
 	}
@@ -95,27 +100,24 @@ public class Flight {
 		this.passengers = passengers;
 	}
 
-	public void print() {
-		System.out.print(id+"\t");
-		System.out.print(airplane.model()+"\t\t");
-		if (origin.getCity().length()<8) {
-			System.out.print(origin.getCity()+"\t\t");
-		} else {
-			System.out.print(origin.getCity()+"\t");
-		}
-		System.out.print(destination.getCity()+"\t\t");
-		System.out.print(formatter.format(departureTime)+"\t");
-		System.out.print(formatter.format(arrivalTime)+"\t");
-		if (delayed) {
-			System.out.print("delayed\t\t");
-		} else {
-			System.out.print("estimated\t");
-		}
-		int availableE = airplane.economyCapacity()-bookedEconomy;
-		System.out.print(availableE+"\t\t\t");
-		int availableB = airplane.businessCapacity()-bookedBusiness;
-		System.out.print(availableB);
-		System.out.println();
-	}
 
+	public void print(Locale locale) {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd MMM yyyy HH:mm", locale);
+        Properties messages = LocalizationLoader.loadMessages(locale);
+
+        String statusTranslation = messages.getProperty("status." + status.name(), status.name());
+
+        System.out.print(id + "\t");
+        System.out.print(airplane.model() + "\t\t");
+        System.out.print(origin.getCity() + "\t\t");
+        System.out.print(destination.getCity() + "\t\t");
+        System.out.print(formatter.format(departureTime) + "\t");
+        System.out.print(formatter.format(arrivalTime) + "\t");
+
+        int availableE = airplane.economyCapacity() - bookedEconomy;
+        System.out.print(availableE + "\t\t\t");
+        int availableB = airplane.businessCapacity() - bookedBusiness;
+        System.out.print(availableB);
+        System.out.println();
+    }
 }
