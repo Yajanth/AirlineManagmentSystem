@@ -20,15 +20,15 @@ public class FlightsController {
  public static void addNewFlight(Scanner s, Locale locale) {
         Properties messages = loadLocalizedMessages(locale);
 
-        System.out.println(messages.getProperty("flight.origin") + ": ");
+        System.out.println(messages.getProperty("flight.selectAirplane") + ": ");
         int planeID = s.nextInt();
         Airplane plane = AirplanesController.getPlaneByID(planeID);
 
-        System.out.println(messages.getProperty("flight.destination") + ": ");
+        System.out.println(messages.getProperty("flight.selectOrigin") + ": ");
         int originID = s.nextInt();
         Airport origin = AirportsController.getAirportById(originID);
 
-        System.out.println(messages.getProperty("flight.destination") + ": ");
+        System.out.println(messages.getProperty("flight.selectDestination") + ": ");
         int destinationID = s.nextInt();
         Airport destination = AirportsController.getAirportById(destinationID);
 
@@ -64,6 +64,7 @@ public class FlightsController {
             f.print(locale);
         }
     }
+
 
 	
 

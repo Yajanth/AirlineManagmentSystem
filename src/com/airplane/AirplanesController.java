@@ -21,8 +21,10 @@ public class AirplanesController {
 
     // In-memory storage for airplanes
     private static ArrayList<Airplane> airplanes = new ArrayList<>();
+    
 
     public static void AddNewAirplane(Scanner s) {
+
         System.out.println("Enter economy capacity (int): ");
         int EconomyCapacity = s.nextInt();
         System.out.println("Enter business capacity (int): ");
@@ -43,9 +45,11 @@ public class AirplanesController {
 
     // Implemented Functional Interface with Lambda Function
     public static void PrintAllPlanes() {
+//    	seedAirplanes();
+
         System.out.println("---------------------------");
         // Using a lambda expression to print airplane details
-        airplanes.forEach(plane -> System.out.println("Airplane Model: " + plane.model()));
+        airplanes.forEach(plane -> System.out.println("Airplane ID: " + plane.id()+ "\n" + "Airplane Model: " + plane.model()));
         System.out.println("---------------------------");
     }
 
@@ -84,7 +88,6 @@ public class AirplanesController {
         System.out.println("Airplane edited successfully!");
     }
     public static void runDiagnostics() {
-    	seedAirplanes();
 
         ExecutorService executor = Executors.newFixedThreadPool(airplanes.size());
         List<Callable<String>> diagnosticTasks = new ArrayList<>();
@@ -161,7 +164,7 @@ public class AirplanesController {
             System.out.println("Airplane not found!");
         }
     }
-    private static void seedAirplanes() {
+    static void seedAirplanes() {
         AirplanesController.addTestAirplane(new Airplane(1, 100, 20, "Boeing 737"));
         AirplanesController.addTestAirplane(new Airplane(2, 150, 30, "Airbus A320"));
         AirplanesController.addTestAirplane(new Airplane(3, 120, 25, "Embraer E190"));
@@ -182,4 +185,5 @@ public class AirplanesController {
             return input == -1 ? oldValue : (T) Integer.valueOf(input);
         }
     }
+
 }

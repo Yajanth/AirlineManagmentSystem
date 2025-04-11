@@ -140,7 +140,7 @@ public class PassengerController {
         savePassengerData();  // Save to file after deleting
     }
 
-    // Stream example: Sort passengers by first name
+    // Sort passengers by first name
     public static void passengersSortByFName() {
         System.out.println("--- Sorted by First Name ---");
         passengers.stream()

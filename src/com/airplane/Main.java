@@ -48,6 +48,8 @@ public class Main {
         Map<Integer, Runnable> actions = new HashMap<>();
         // Load existing passenger data
         PassengerController.loadPassengerData();
+        AirplanesController.seedAirplanes();
+
 
         actions.put(1, () -> PassengerController.addNewPassenger(s));
         actions.put(2, () -> PassengerController.findPassengerByName(s));
@@ -65,8 +67,8 @@ public class Main {
         actions.put(11, () -> AirplanesController.AddNewAirplane(s));
         actions.put(12, AirplanesController::PrintAllPlanes);
         actions.put(13, () -> AirplanesController.EditAirplane(s));
-        actions.put(14, () -> AirplanesController.DeletePlane(s));
-        actions.put(27, AirplanesController::runDiagnostics);
+//        actions.put(14, () -> AirplanesController.DeletePlane(s));
+        actions.put(14, AirplanesController::runDiagnostics);
 
 
         actions.put(15, () -> AirportsController.addNewAirport(s));
@@ -93,7 +95,7 @@ public class Main {
 
             choice = s.nextInt();
 
-            if (choice == 31) {
+            if (choice == 26) {
                 System.out.println(messages.getProperty("menu.quit"));
                 break;
             }
@@ -134,7 +136,7 @@ public class Main {
         System.out.println("  11. " + messages.getProperty("menu.addAirplane"));
         System.out.println("  12. " + messages.getProperty("menu.printAllPlanes"));
         System.out.println("  13. " + messages.getProperty("menu.editAirplane"));
-        System.out.println("  14. " + messages.getProperty("menu.deleteAirplane") + " \\n");
+        System.out.println("  14. " + messages.getProperty("menu.runAirplaneDiagnoistics") + " \\n");
 
         System.out.println(messages.getProperty("menu.airports") + ":");
         System.out.println("  15. " + messages.getProperty("menu.addAirport"));
