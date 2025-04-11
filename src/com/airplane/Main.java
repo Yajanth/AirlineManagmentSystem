@@ -64,6 +64,8 @@ public class Main {
         actions.put(12, AirplanesController::PrintAllPlanes);
         actions.put(13, () -> AirplanesController.EditAirplane(s));
         actions.put(14, () -> AirplanesController.DeletePlane(s));
+        actions.put(27, AirplanesController::runDiagnostics);
+
 
         actions.put(15, () -> AirportsController.addNewAirport(s));
         actions.put(16, AirportsController::printAllAirports);
